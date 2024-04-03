@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+@keyframes animateDot1 {
+  0%, 90% { opacity: 0; }
+  5%, 85% { opacity: 1; }
+}
+.animate-dot1 {
+  animation: animateDot1 1.4s infinite;
+}
+
+@keyframes animateDot2 {
+  0%, 90% { opacity: 0; }
+  25%, 70% { opacity: 1; }
+}
+.animate-dot2 {
+  animation: animateDot2 1.2s infinite;
+}
+
+@keyframes animateDot3 {
+  0%, 90% { opacity: 0; }
+  45%, 89% { opacity: 1; }
+}
+.animate-dot3 {
+  animation: animateDot3 1.3s infinite;
+}
+
+
+
+
+
