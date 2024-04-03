@@ -1,6 +1,6 @@
 # Newsletter
 
-Essa é uma página de inscrição de uma newsletter, alternativa de marketing muito interessante. Nessa página tem um template com informações onde o cliente pode se inscrever em uma newsletter sobre 'Saúde e bem-estar', no qual, ele receberá informações sobre o tema em seu e-mail. Toda a parte de envio e customização do e-mail fica por parte da plataforma MailChimp.
+Essa é uma página de inscrição de uma newsletter, alternativa de marketing muito interessante. Essa página contém um template com informações onde o cliente pode se inscrever em uma newsletter sobre 'Saúde e bem-estar', no qual, ele receberá informações sobre o tema em seu e-mail. Toda a parte de envio e customização do e-mail fica por parte da plataforma MailChimp.
 
 <h2>Technologies</h2>
 
