@@ -1,5 +1,5 @@
-import heroImg from './assets/woman-relaxing.jpg';
-import MailChimpForm from './components/MailcChimpForm/MailChimpForm';
+import heroImg from './assets/woman-relaxing.webp';
+import MailChimpForm from './components/MailChimpForm/MailChimpForm';
 
 
 function App() { 
@@ -11,7 +11,7 @@ function App() {
           <div className="w-full h-full flex flex-col-reverse justify-center items-center lg:flex-row lg:gap-5">
               <div className="text-left w-full h-full flex flex-col gap-5 lg:text-lg pb-10 lg:pr-7 mt-10">
                 <h2>Bem-vindo à nossa comunidade dedicada ao seu bem-estar e saúde mental! <br/> <br/> Aqui, estamos comprometidos em fornecer recursos valiosos e dicas práticas para <strong>te ajudar a manter um equilíbrio saudável em sua vida</strong>.</h2>
-                <p className='py-2 font-semibold '>Inscreva-se agora:</p>
+                <p className='pt-2 pb-1 font-semibold '>Inscreva-se agora:</p>
                 <div className="w-full h-full flex flex-col justify-center items-center">
                   <MailChimpForm/>
                 </div>

@@ -1,15 +1,21 @@
-import MailchimpSubscribe from "react-mailchimp-subscribe";
 import { useState } from "react";
 import PropTypes from 'prop-types';
 import { useEffect } from "react";
 
-const CustomForm = ({ status, message, onValidated}) => {
-    
+CustomForm.propTypes = {
+    status: PropTypes.string,
+    message: PropTypes.any,
+    onValidated: PropTypes.func
+};
+
+export default function CustomForm({ status, message, onValidated}) {
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [nameErrorMessage, setNameErrorMessage] = useState('');
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [activeButton, setActiveButton] = useState(true);
+    const [translatedMessage, setTranslatedMessage] = useState(message);
 
     const handleNameChange = (e) => {
         const value = e?.target.value || '';
@@ -27,12 +33,12 @@ const CustomForm = ({ status, message, onValidated}) => {
         const value = e?.target.value || '';
         setEmail(value);
 
-        if(email.trim() === '') {
+        if(value === '') {
             setEmailErrorMessage("Por favor, informe um e-mail.");
         }
         else {
             const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-            if(!emailRegex.test(email)) {
+            if(value && (!emailRegex.test(value))) {
                 setEmailErrorMessage("E-mail inválido.");
             }
             else {
@@ -54,7 +60,7 @@ const CustomForm = ({ status, message, onValidated}) => {
 
     }
 
-    const translateMessage = (message) => {
+    const translateMessageFunction = (message) => {
         const translations = {
             'Thank you for subscribing!': 'Inscrição realizada!',
             "You're already subscribed, your profile has been updated. Thank you!": 'Você já está inscrito nessa newsletter!'
@@ -67,30 +73,43 @@ const CustomForm = ({ status, message, onValidated}) => {
             return message;
         }
     }
-    
+    useEffect(() => {
+        setTranslatedMessage(translateMessageFunction(message))
+        const timer = setTimeout(() => {
+            setTranslatedMessage(' ')
+        }, 3000);
+        
+
+        return () => {
+            clearTimeout(timer)
+        }
+    }, [message])
+
     useEffect(() => {
         status === 'success' ? (setName(''), setEmail('')) : '';
-
 
     }, [status])
     
     useEffect(() => {       
         if(name && email) setActiveButton(false);
     }, [name, email])
-     
+        
     return (
         <form
         className='w-[300px] md:w-[380px] flex flex-col items-left gap-2'
         onSubmit={(e) => handleSubmit(e)}>
 
-            {status === "sending" && (
-            <div className="flex items-center justify-center">
-                <span className="">enviando</span>
-                <span className="text-xl animate-dot1">.</span>
-                <span className="text-xl animate-dot2 opacity-0">.</span>
-                <span className="text-xl animate-dot3 opacity-0">.</span>
-            </div>)}
-            <p className={`text-center font-medium ${message === 'Thank you for subscribing!' ? 'text-green-500' : 'text-red-500'}`}>{translateMessage(message)}</p>
+            <div className="h-5 mb-1">
+                {status === "sending" && (
+                <div className="flex items-center justify-center">
+                    <span className="">Enviando</span>
+                    <span className="text-xl animate-dot1">.</span>
+                    <span className="text-xl animate-dot2 opacity-0">.</span>
+                    <span className="text-xl animate-dot3 opacity-0">.</span>
+                </div>)}
+
+                <p className={`text-center font-medium ${message === 'Thank you for subscribing!' ? 'text-green-500' : 'text-red-500'}`}>{translatedMessage}</p>
+            </div>
             
             <div className="w-full h-full flex justify-between">
                 <label htmlFor="name">Nome</label>
@@ -123,31 +142,4 @@ const CustomForm = ({ status, message, onValidated}) => {
         </form>
     );
 }
-CustomForm.propTypes = {
-    status: PropTypes.string,
-    message: PropTypes.any,
-    onValidated: PropTypes.func
-  };
 
-
-export default function MailChimpForm() {
-
-    const PUBLIC_ID = import.meta.env.VITE_PUBLIC_ID;
-    const U_VALUE = import.meta.env.VITE_U_VALUE; 
-    const formPostUrl = `https://app.us18.list-manage.com/subscribe/post?u=${U_VALUE}&id=${PUBLIC_ID}`;
-
-  return (
-    <div>
-        <MailchimpSubscribe
-            url={formPostUrl}
-            render={({ subscribe, status, message }) => (
-                <CustomForm
-                    status={status} 
-                    message={message}
-                    onValidated={formData => subscribe(formData)}
-                />
-            )}
-        />
-    </div>
-  )
-}
