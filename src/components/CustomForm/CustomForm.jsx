@@ -30,6 +30,7 @@
                 const nameRegex = /[0-9]/;
                 if(value && (nameRegex.test(value))) {
                     setNameErrorMessage("Nome inválido.");
+                    setValidName(false)
                 }
                 else {
                     setNameErrorMessage("")
@@ -41,7 +42,6 @@
         const handleEmailChange = (e) => {
             const value = e?.target.value || '';
             setEmail(value);
-            console.log('Toc')
             if(value === '' || value === undefined) {
                 setEmailErrorMessage("Por favor, informe um e-mail.");
             }
@@ -49,6 +49,7 @@
                 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
                 if(value && (!emailRegex.test(value))) {
                     setEmailErrorMessage("E-mail inválido.");
+                    setValidEmail(false)
                 }
                 else {
                     setEmailErrorMessage("")
@@ -59,13 +60,13 @@
 
         const handleSubmit = (e) => {
             e.preventDefault();
-            name &&
-            email &&
-            email.indexOf("@") > -1 &&
-            onValidated({
-                EMAIL: email,
-                MERGE1: name
-            });
+            if(validName && validEmail) {
+                email.indexOf("@") > -1 &&
+                onValidated({
+                    EMAIL: email,
+                    MERGE1: name
+                });
+            }
 
 
         }
