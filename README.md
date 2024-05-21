@@ -18,5 +18,5 @@ https://github.com/vandilsonbrito/newsletter/assets/108373095/2b3386ec-6f49-4613
 
 <h2>Demo</h2>
 
-[[Newsletter](https://newsletter-bem-estar-e-saude.netlify.app/)]
+[Newsletter](https://newsletter-bem-estar-e-saude.netlify.app/)
 
