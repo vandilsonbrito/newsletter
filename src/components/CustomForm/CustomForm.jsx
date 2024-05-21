@@ -32,7 +32,7 @@
                     setNameErrorMessage("Nome inválido.");
                 }
                 else {
-                    setEmailErrorMessage("")
+                    setNameErrorMessage("")
                     setValidName(true)
                 }
             }
